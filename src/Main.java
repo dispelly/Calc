@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.StringTokenizer;
 
 public class Main {
 
@@ -9,10 +10,12 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         str = sc.nextLine();
 
-        Calculator calc=new Calculator();
+       Calculator calc=new Calculator();
         rez= calc.calculate(str);
-        System.out.println("Результат: "+rez);
+        System.out.println(rez);
     }
 
 
 }
+
+
