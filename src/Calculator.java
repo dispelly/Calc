@@ -47,12 +47,13 @@ public class Calculator {
      * главный метод подсчета выражения
      * используем обратную польскую запись
      * @param str String
-     * @return String
+     * @return double результат вычислений
      */
     public double calculate(String str) throws Exception {
         Stack<Double> stack = new Stack<Double>(); // записываем цифры
         Stack<Character> op = new Stack<Character>(); // записываем опрераторы
         String sN;
+        //разделяем строку, разделителем является операнд
         StringTokenizer st = new StringTokenizer(str, "+-*/()", true);
         while (st.hasMoreTokens()) {
             sN = st.nextToken();
@@ -72,9 +73,9 @@ public class Calculator {
                 }
 
         }
-        while (!op.isEmpty())
+        while (!op.empty())
             resultOp(stack, op.pop());
-
+        // возвращаем результат из стека
         return stack.pop();
     }
 
@@ -83,7 +84,7 @@ public class Calculator {
      *@param stack Stack<Double> передаем стек чисел
      *@param operator char передаем оператор
      */
-   private void resultOp(Stack<Double> stack, char operator) {
+   private void resultOp(Stack<Double> stack, char operator)throws Exception {
         double answer = 0;
         double num1 = stack.pop();
         double num2 = stack.pop();
@@ -100,8 +101,10 @@ public class Calculator {
             case '*':
                 answer = num1 * num2;
                 break;
-
+            default:
+                throw new Exception("Недопустимая операция " + operator);
             }
+        //записываем результат операции в стек
         stack.push(answer);
     }
 }

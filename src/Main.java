@@ -13,7 +13,7 @@ public class Main {
             rez = calc.calculate(str);
             System.out.println(rez);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println("Неверный формат");
         }
     }
 }
