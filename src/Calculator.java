@@ -1,11 +1,15 @@
 import java.util.StringTokenizer;
 import java.util.Stack;
 
+/**
+ * Консольный калькулятор с поддержкой скобкок.
+ * Поддерживаются операции сложения, вычитания, умножения, деления.
+ */
 
 public class Calculator {
     /**
-     * Метод проверяет, является ли строка числом
-     * @param currSymb String
+     * Метод проверяет, является ли строка числом.
+     * @param currSymb String - Строковое поле для проверки на число.
      */
     private boolean isNum(String currSymb) {
         try {
@@ -16,8 +20,8 @@ public class Calculator {
         }
     }
     /**
-     * Метод проверяет, является ли символ оператором
-     * @param c char
+     * Метод проверяет, является ли символ оператором.
+     * @param c char - Текущий символ проверяемый на математическую операцию.
      */
    private boolean isOp(char c) {
         if (c=='+' || c=='-' || c=='*' || c=='/')
@@ -26,8 +30,8 @@ public class Calculator {
     }
 
     /**
-     * приоритет операции
-     * @param op char
+     * Метод устанавливающий приоритет операции при рассчете.
+     * @param op char - Переменная для установки приоритета от 0 до 2.
      * @return byte
      */
     private static byte opPrior(char op) {
@@ -44,17 +48,18 @@ public class Calculator {
     }
 
     /**
-     * главный метод подсчета выражения
-     * используем обратную польскую запись
-     * @param str String
-     * @return double результат вычислений
+     * Главный метод подсчета выражения.
+     * используется алгоритм обратной польской записи.
+     * @param str String - Входная строка.
+     * @return double - Результат вычислений.
      */
     public double calculate(String str) throws Exception {
-        Stack<Double> stack = new Stack<Double>(); // записываем цифры
-        Stack<Character> op = new Stack<Character>(); // записываем опрераторы
+        Stack<Double> stack = new Stack<Double>(); // Стэк для записи цифр.
+        Stack<Character> op = new Stack<Character>(); // Стэк для записи опрераторов.
         String sN;
-        //разделяем строку, разделителем является операнд
+        //Разделяем строку, разделителем является операнд.
         StringTokenizer st = new StringTokenizer(str, "+-*/()", true);
+        //Вычисляем результат выражения используя приоритеты операций и скобок.
         while (st.hasMoreTokens()) {
             sN = st.nextToken();
                 if (sN.charAt(0) == '(')
@@ -75,14 +80,14 @@ public class Calculator {
         }
         while (!op.empty())
             resultOp(stack, op.pop());
-        // возвращаем результат из стека
+        // Возвращаем результат из стека.
         return stack.pop();
     }
 
     /**
-     * метод подсчета двух чисел
-     *@param stack Stack<Double> передаем стек чисел
-     *@param operator char передаем оператор
+     * Метод возвращающий результат подсчета двух чисел.
+     *@param stack Stack<Double> - Передаем стэк чисел.
+     *@param operator char - Передаем оператор.
      */
    private void resultOp(Stack<Double> stack, char operator)throws Exception {
         double answer = 0;
@@ -104,7 +109,7 @@ public class Calculator {
             default:
                 throw new Exception("Недопустимая операция " + operator);
             }
-        //записываем результат операции в стек
+        //Записываем результат операции в стек.
         stack.push(answer);
     }
 }
